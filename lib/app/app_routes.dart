@@ -23,7 +23,7 @@ class AppRoutes {
     signup: (context) => SignupPage(),
     phonel: (context) => const PhoneLoginPage(),
     home: (context) => HomePage(),
-    listacompra: (context) => FavoritesListPage(),
+    listacompra: (context) => ShoppingListPage(),
     categories: (context) => CategoriasPage(),
 
     // Adicione outras aqui, ex:
