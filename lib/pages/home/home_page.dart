@@ -7,84 +7,92 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
-        // title: 'Receitas do Seu Jeito',
-        hideBackButton: true, // desativa o botão de voltar
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(height: 30),
-            Text(
-              'O que você tem em casa hoje?',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF2C3E50),
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'Informe os ingredientes disponíveis e descubra receitas incríveis!',
-              style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 40),
+      appBar: const CustomAppBar(hideBackButton: true),
+      body: Container(
+        color: const Color(0xFFFFFCF5),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 20),
 
-            // Botão principal
-            ElevatedButton.icon(
-              onPressed: () => Navigator.pushNamed(context, '/search'),
-              icon: const Icon(Icons.search),
-              label: const Text(
-                'Buscar por Ingredientes',
-                style: TextStyle(fontSize: 18),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFE67E22),
-                foregroundColor: Colors.white,
-                minimumSize: const Size(double.infinity, 55),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
+              // Imagem decorativa (adicione a sua imagem de banner no assets e ajuste o path)
+              Image.asset('lib/assets/img/receitas_banner.png', height: 180),
 
-            // Botões secundários
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildOptionButton(
-                  context,
-                  icon: Icons.favorite,
-                  label: 'Favoritos',
-                  route: '/favorites',
+              const SizedBox(height: 30),
+
+              Text(
+                'O que você tem em casa hoje?',
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF2C3E50),
                 ),
-                _buildOptionButton(
-                  context,
-                  icon: Icons.shopping_cart,
-                  label: 'Lista de Compras',
-                  route:
-                      '/shoppingList', // Rota para a tela de lista de compras
+                textAlign: TextAlign.center,
+              ),
+
+              const SizedBox(height: 12),
+
+              Text(
+                'Informe os ingredientes disponíveis e descubra receitas incríveis!',
+                style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                textAlign: TextAlign.center,
+              ),
+
+              const SizedBox(height: 40),
+
+              ElevatedButton.icon(
+                onPressed: () => Navigator.pushNamed(context, '/search'),
+                icon: const Icon(Icons.search),
+                label: const Text(
+                  'Buscar por Ingredientes',
+                  style: TextStyle(fontSize: 18),
                 ),
-                _buildOptionButton(
-                  context,
-                  icon: Icons.category,
-                  label: 'Categorias',
-                  route: '/categories',
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFE67E22),
+                  foregroundColor: Colors.white,
+                  minimumSize: const Size(double.infinity, 55),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  elevation: 4,
+                  shadowColor: Colors.orange.withOpacity(0.3),
                 ),
-              ],
-            ),
-          ],
+              ),
+
+              const SizedBox(height: 30),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildOptionButton(
+                    context,
+                    icon: Icons.favorite,
+                    label: 'Favoritos',
+                    route: '/favorites',
+                  ),
+                  _buildOptionButton(
+                    context,
+                    icon: Icons.shopping_cart,
+                    label: 'Compras',
+                    route: '/shoppingList',
+                  ),
+                  _buildOptionButton(
+                    context,
+                    icon: Icons.category,
+                    label: 'Categorias',
+                    route: '/categories',
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  // Botão estilo card
   Widget _buildOptionButton(
     BuildContext context, {
     required IconData icon,
@@ -93,19 +101,29 @@ class HomePage extends StatelessWidget {
   }) {
     return Column(
       children: [
-        Ink(
-          decoration: const ShapeDecoration(
+        Container(
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
             color: Color(0xFFFDEBD0),
-            shape: CircleBorder(),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 4,
+                offset: Offset(2, 2),
+              ),
+            ],
           ),
           child: IconButton(
-            icon: Icon(icon, size: 30, color: Color(0xFFE67E22)),
+            icon: Icon(icon, size: 28, color: Color(0xFFE67E22)),
             onPressed: () => Navigator.pushNamed(context, route),
             tooltip: label,
           ),
         ),
         const SizedBox(height: 6),
-        Text(label, style: const TextStyle(fontSize: 14)),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+        ),
       ],
     );
   }
